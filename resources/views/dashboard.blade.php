@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -12,4 +12,31 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}
+
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+
+
+@section('content_header')
+    <h1>Inicio</h1>
+@stop
+
+@section('content')
+    <div class="card">
+        <div class="card-header">Inicio</div>
+        <div class="card-body">
+            <input type="text">
+        </div>
+    </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop

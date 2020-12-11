@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
+    'title' => '',
+    'title_prefix' => 'App Ventas |',
     'title_postfix' => '',
 
     /*
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>App</b>Ventas',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -231,88 +231,78 @@ return [
     */
 
     'menu' => [
+        ['header' => 'Menu'],
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
+            // este sirve para el sistemas de roles
+            // 'text' => 'Empresa',
+            // 'url'  => 'admin/blog',
+            // 'can'  => 'manage-blog',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text'        => 'Inicio',
+            'url'         => 'dashboard',
+            'icon'        => 'fas fa-fw fa-home',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Multi-Empresa',
+            'icon'    => 'fas fa-fw  fa-building',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Empresa',
+                    'url'  => 'empresas',
+                    'icon'    => 'fas fa-fw  fa-toolbox'
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Sucursal',
+                    'url'  => 'sucursales',
+                    'icon' => 'fas fa-fw fa-lock'
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Proveedores',
+                    'url'  => 'proveedores',
+                    'icon' => 'fas fa-fw fa-cash-register'
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text' => 'Bodega',
+            'icon' => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'Solicitar Articulo',
+                    'url'  => 'solicitar_articulo',
+                    'icon'    => 'fas fa-fw  fa-toolbox'
+                ],
+                [
+                    'text' => 'Bodega',
+                    'url'  => 'bodega',
+                    'icon' => 'fas fa-fw fa-lock'
+                ],
+            ],
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text'    => 'Ventas',
+            'icon'    => 'fas fa-fw  fa-building',
+            'submenu' => [
+                [
+                    'text' => 'Venta',
+                    'url'  => 'venta',
+                    'icon'    => 'fas fa-fw  fa-toolbox'
+                ],
+                [
+                    'text' => 'Informe de Ventas',
+                    'url'  => 'informe_ventas',
+                    'icon' => 'fas fa-fw fa-lock'
+                ],
+                [
+                    'text' => 'Informe de facturas',
+                    'url'  => 'informe_facturas',
+                    'icon' => 'fas fa-fw fa-cash-register'
+                ],
+            ],
         ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        
+        
     ],
 
     /*
@@ -351,7 +341,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -371,7 +361,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -386,7 +376,7 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -396,7 +386,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
