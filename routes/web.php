@@ -1,9 +1,14 @@
 <?php
 
+use App\Http\Controllers\BodegaController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\SolicitarProductosController;
 use App\Http\Controllers\SucursalController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +20,17 @@ use App\Http\Controllers\SucursalController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::resource('', HomeController::class);
 
-Route::get('/', [Controller::class, 'index']);
+Route::get('/dashboard', [Controller::class, 'index']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
+// se llama todos los recursos del modulo de empresas
 Route::resource('empresas', EmpresaController::class);
-
-
+// se llama todos los recursos del modulo de sucursales
 Route::resource('sucursales', SucursalController::class);
+// se llama todos los recursos del modulo de proveedores
+Route::resource('proveedores', ProveedorController::class);
+
+Route::resource('bodega', BodegaController::class);
+
+Route::resource('solicitar', SolicitarProductosController::class);

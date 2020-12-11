@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -188,7 +188,7 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
 
     'logout_url' => 'logout',
 
@@ -269,8 +269,8 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'submenu' => [
                 [
-                    'text' => 'Solicitar Articulo',
-                    'url'  => 'solicitar_articulo',
+                    'text' => 'Solicitar Producto',
+                    'url'  => 'solicitar',
                     'icon'    => 'fas fa-fw  fa-toolbox'
                 ],
                 [
@@ -301,8 +301,8 @@ return [
                 ],
             ],
         ],
-        
-        
+
+
     ],
 
     /*

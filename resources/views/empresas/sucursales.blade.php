@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Empresas')
+@section('title', 'Sucursales')
 
 @section('plugins.Sweetalert2')
 
@@ -45,7 +45,7 @@
                                 <a href="" class="btn btn-info" data-toggle="modal" data-target="#registroUsuarios"><i class="fas fa-info-circle"></i></a>
                             </td>
                             <td>
-                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#graficaSucursal"><i class="fas fa-chart-line"></i></a>
+                                <a href="" class="btn btn-success" data-toggle="modal" data-target="#GraficaSucursales"><i class="fas fa-chart-line"></i></a>
                             </td>
                         </tr>                   
                 </tbody>
@@ -250,6 +250,25 @@
         </div>
     </div>
 
+    <!-- Modal de Formulario para editar empresa  -->
+    <div id="GraficaSucursales" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Grafica de ventas de la sucursal Fallabela</h4>
+                    <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <canvas id="GraficaVentasSucursal"></canvas>
+                </div>
+                <div class="modal-footer" >
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
+                </div>
+               
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('css')
@@ -265,5 +284,44 @@
         //     showConfirmButton: false,
         //     timer: 1500
         //     });
+    </script>
+    <script>
+        var ctx = document.getElementById('GraficaVentasSucursal').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
     </script>
 @stop
