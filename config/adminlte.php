@@ -255,12 +255,12 @@ return [
                 [
                     'text' => 'Sucursal',
                     'url'  => 'sucursales',
-                    'icon' => 'fas fa-fw fa-lock'
+                    'icon' => 'fas fa-fw fa-store-alt'
                 ],
                 [
                     'text' => 'Proveedores',
                     'url'  => 'proveedores',
-                    'icon' => 'fas fa-fw fa-cash-register'
+                    'icon' => 'fas fa-fw fa-people-carry'
                 ],
             ],
         ],
@@ -271,33 +271,33 @@ return [
                 [
                     'text' => 'Solicitar Producto',
                     'url'  => 'solicitar',
-                    'icon'    => 'fas fa-fw  fa-toolbox'
+                    'icon'    => 'fas fa-fw  fa-box'
                 ],
                 [
                     'text' => 'Bodega',
                     'url'  => 'bodega',
-                    'icon' => 'fas fa-fw fa-lock'
+                    'icon' => 'fas fa-fw fa-boxes'
                 ],
             ],
         ],
         [
             'text'    => 'Ventas',
-            'icon'    => 'fas fa-fw  fa-building',
+            'icon'    => 'fas fa-fw  fa-cash-register',
             'submenu' => [
                 [
                     'text' => 'Venta',
-                    'url'  => 'venta',
-                    'icon'    => 'fas fa-fw  fa-toolbox'
+                    'url'  => 'ventas',
+                    'icon'    => 'fas fa-fw  fa-cash-register'
                 ],
                 [
                     'text' => 'Informe de Ventas',
                     'url'  => 'informe_ventas',
-                    'icon' => 'fas fa-fw fa-lock'
+                    'icon' => 'fas fa-fw fa-file'
                 ],
                 [
                     'text' => 'Informe de facturas',
                     'url'  => 'informe_facturas',
-                    'icon' => 'fas fa-fw fa-cash-register'
+                    'icon' => 'fas fa-fw fa-file-alt'
                 ],
             ],
         ],

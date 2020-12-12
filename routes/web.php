@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SolicitarProductosController;
 use App\Http\Controllers\SucursalController;
-
+use App\Http\Controllers\VentasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +30,9 @@ Route::resource('empresas', EmpresaController::class);
 Route::resource('sucursales', SucursalController::class);
 // se llama todos los recursos del modulo de proveedores
 Route::resource('proveedores', ProveedorController::class);
-
+// se llama todos los recursos del modulo de bodega
 Route::resource('bodega', BodegaController::class);
-
+// se llama todos los recursos del modulo de solicitar
 Route::resource('solicitar', SolicitarProductosController::class);
+// se llama todos los recursos del modulo de solicitar
+Route::resource('ventas', VentasController::class);
