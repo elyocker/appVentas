@@ -21419,9 +21419,7 @@ var myChart = new Chart(ctx, {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).on('click', '#boton', function () {
-  console.log('Hola boton!');
-});
+
 
 /***/ }),
 
