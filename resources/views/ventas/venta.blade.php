@@ -88,7 +88,15 @@
         </form>
     </div>
 </div>
-
+<div class="card col-md-6">
+   <div class="card-body">
+       <label for="">campo:</label>
+    <input type="text" id="campo">
+    <button type="button" class="btn btn-default" id="boton">enviar</button>
+    <br>
+    <p id="get"></p>
+   </div>
+</div>        
 
 {{-- ======================================
     MODAL DE VENTAS
@@ -141,4 +149,13 @@
 
 @section('js')
     <script src="{{asset('js/app.js')}}"></script>
+    <script>
+       $(document).on('click', '#boton', function(){
+            var campo = document.getElementById('campo');
+
+            const get = document.getElementById('get');
+            
+            get.innerHTML = campo.value +'<br>'+ get.innerHTML;
+        });
+    </script>
 @stop
