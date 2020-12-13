@@ -1,24 +1,9 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div>
-</x-app-layout> --}}
 
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Inicio')
 
-
+@section('plugins.Chartjs')
 
 @section('content_header')
     <h1>Inicio</h1>
@@ -26,17 +11,51 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">Inicio</div>
+        <div class="card-header text-center"><strong>Informe Generales</strong></div>
         <div class="card-body">
-            <input type="text">
+
+            <div class="row">
+                {{-- Grafica uno --}}
+                
+                <div class="card col-md-6 bg-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Title</h5>
+                        <canvas class="bg-light" id="grafica1"></canvas>
+                    </div>
+                </div>
+                {{-- Grafica 2 --}}
+                <div class="card col-md-6 bg-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Title</h5>
+                        <canvas class="bg-" id="grafica2"></canvas>
+                    </div>
+                </div>
+                {{-- Grafica 3 --}}
+                <div class="card col-md-6 bg-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Title</h5>
+                        <canvas class="bg-light" id="grafica3"></canvas>
+                    </div>
+                </div>
+                {{-- Grafica 4 --}}
+                <div class="card col-md-6 bg-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Title</h5>
+                        <canvas class="bg-light" id="grafica4"></canvas>
+                    </div>
+                </div>
+               
+
+
+            </div>
         </div>
     </div>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script src="{{asset('js/app.js')}}"></script>
 @stop

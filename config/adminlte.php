@@ -290,13 +290,8 @@ return [
                     'icon'    => 'fas fa-fw  fa-cash-register'
                 ],
                 [
-                    'text' => 'Informe de Ventas',
-                    'url'  => 'informe_ventas',
-                    'icon' => 'fas fa-fw fa-file'
-                ],
-                [
-                    'text' => 'Informe de facturas',
-                    'url'  => 'informe_facturas',
+                    'text' => 'Informes',
+                    'url'  => 'informes',
                     'icon' => 'fas fa-fw fa-file-alt'
                 ],
             ],
@@ -380,8 +375,8 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'asset' => true,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js',
                 ],
             ],
         ],

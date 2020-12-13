@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para crear empresa  -->
+    <!-- Modal de Formulario para editar sucursal -->
     <div id="editarSucursales" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -202,13 +202,13 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para editar empresa  -->
+    <!-- Modal de Formulario para registro de personal de la sucursal  -->
     <div id="registroUsuarios" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Admin de la empresa</h4>
+                    <h4 class="modal-title">registro del personal</h4>
                     <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                 </div>
                 <form method="POST" action="{{ route('register') }}"">
@@ -233,8 +233,16 @@
                             <input type="password_confirmation"  name="repita_password" value="" class="form-control" placeholder="Escribe la contraseña">
                         </div>
                         <div class="form-group">
+                            <label>Rol:</label>
+                            <select class="form-control" name="rol"  required>
+                                <option value="">Bodeguero</option>
+                                <option value="">Cajera</option>
+                                <option value="">Proveedor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Empresa:</label>
-                            <select class="form-control" name="ciudad"  required>
+                            <select class="form-control" name="id_empresa"  required>
                                 <option value="">Ecom</option>
                             </select>
                         </div>

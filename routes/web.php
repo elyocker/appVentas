@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\InformesController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SolicitarProductosController;
 use App\Http\Controllers\SucursalController;
@@ -36,3 +37,5 @@ Route::resource('bodega', BodegaController::class);
 Route::resource('solicitar', SolicitarProductosController::class);
 // se llama todos los recursos del modulo de solicitar
 Route::resource('ventas', VentasController::class);
+// se llama todos los recursos del modulo de informes 
+Route::resource('informes', InformesController::class);
