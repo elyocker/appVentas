@@ -138,14 +138,9 @@
 @stop
 
 @section('css')
-    <style>
-        
-    </style>
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 @stop
 
 @section('js')
-    <script> 
-    
-    
-    </script>
+    <script src="{{asset('js/app.js')}}"></script>
 @stop

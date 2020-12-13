@@ -21265,6 +21265,8 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 __webpack_require__(/*! ./graficas */ "./resources/js/graficas.js");
 
+__webpack_require__(/*! ./ventas */ "./resources/js/ventas.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -21327,7 +21329,10 @@ var myChart = new Chart(ctx, {
       }]
     }
   }
-});
+}); //  ==========================================
+//         grafica 2
+//  ==========================================
+
 var ctx = document.getElementById('grafica2');
 var lunes = "#4359FE";
 var martes = "#EBD609";
@@ -21349,7 +21354,72 @@ var myPieChart = new Chart(ctx, {
   options: {
     responsive: true
   }
+}); //  ==========================================
+//         grafica 3
+//  ==========================================
+
+var ctx = document.getElementById('grafica3').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+      borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          responsive: true
+        }
+      }]
+    }
+  }
+}); //  ==========================================
+//         grafica 4
+//  ==========================================
+
+var ctx = document.getElementById('grafica4').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+      borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          responsive: true
+        }
+      }]
+    }
+  }
 });
+
+/***/ }),
+
+/***/ "./resources/js/ventas.js":
+/*!********************************!*\
+  !*** ./resources/js/ventas.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
 
 /***/ }),
 

@@ -237,17 +237,9 @@
 @stop
 
 @section('css')
-    
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 @stop
 
 @section('js')
-    <script>
-        // Swal.fire({
-        //     position: 'top-end',
-        //     type: 'success',
-        //     title: 'Your work has been saved',
-        //     showConfirmButton: false,
-        //     timer: 1500
-        // });
-    </script>
+    <script src="{{asset('js/app.js')}}"></script>
 @stop
