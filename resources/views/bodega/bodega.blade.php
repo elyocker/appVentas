@@ -69,10 +69,14 @@
             <form action="" method="POST">
                 <div class="modal-body">
                     @csrf
-        
+                    
+                    <div class="form-group">
+                        <label>Cantidad:</label>
+                        <input type="number" name="codigo" min="0" value="" class="form-control" placeholder="Escribe el email">
+                    </div>
                     <div class="form-group">
                         <label>Categoria:</label>
-                        <select name="categoria" class="form-control">
+                        <select name="id_categoria" class="form-control">
                             <option value="">carnes</option>
                             <option value="">lacteos</option>
                         </select>

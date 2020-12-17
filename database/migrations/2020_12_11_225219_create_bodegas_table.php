@@ -14,7 +14,16 @@ class CreateBodegasTable extends Migration
     public function up()
     {
         Schema::create('bodegas', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
+            $table->integer('codigo');
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->string('producto');
+            $table->integer('cantidad');
+            $table->integer('valor_und');
+            $table->integer('iva');
+            $table->date('fecha_vencimiento');
+            $table->timestamp('fecha');
             $table->timestamps();
         });
     }

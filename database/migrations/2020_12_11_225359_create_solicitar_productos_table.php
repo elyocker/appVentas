@@ -14,7 +14,17 @@ class CreateSolicitarProductosTable extends Migration
     public function up()
     {
         Schema::create('solicitar_productos', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
+            $table->string('producto'); 
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->integer('cantidad');
+            $table->date('fecha_garantia')->nullable();
+            $table->date('fecha_Entrega');
+            $table->unsignedBigInteger('id_empresa');
+            $table->foreign('id_empresa')->references('id')->on('empresas');
+            $table->unsignedBigInteger('id_sucursal');
+            $table->foreign('id_sucursal')->references('id')->on('sucursales');
             $table->timestamps();
         });
     }

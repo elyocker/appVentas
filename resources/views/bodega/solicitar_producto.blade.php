@@ -18,12 +18,12 @@
                     <div class="row">
                                         
                         <div class="col-md-4">
-                            <label class="form-label">Nombre:</label>
-                            <input type="text" class="form-control" name="nombre" value="">
+                            <label class="form-label">Producto:</label>
+                            <input type="text" class="form-control" name="producto" value="">
                         </div>
                         <div class="col-md-4 mt-1">
                             <label class="form-label">Categoria:</label>
-                            <select  class="form-control" name="fecha_garantia" value="">
+                            <select  class="form-control" name="id_categoria" value="">
                                 <option selected>Carnes</option>
                                 <option selected>lacteos</option>
                                 <option selected>perecederos</option>

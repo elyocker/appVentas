@@ -164,7 +164,7 @@
                                 <option value="">cali</option>
                                 <option value="">bogota</option>
                                 <option value="">medellin</option>
-                            </select>
+                            </select> 
                         </div>
                         
                         {{-- <div class="form-group">

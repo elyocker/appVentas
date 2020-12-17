@@ -14,15 +14,15 @@ class CreateEmpresasTable extends Migration
     public function up()
     {
         Schema::create('empresas', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->integer('nit');
             $table->string('nombre');
-            $table->string('direccion');
             $table->integer('telefono')->nullable();
             $table->string('email')->unique();
-            $table->string('ciudad');
-            $table->string('departamento');
-            $table->string('password');
+            $table->unsignedBigInteger('id_departamento');
+            $table->foreign('id_departamento')->references('id')->on('departamentos');
+            $table->unsignedBigInteger('id_ciudad');
+            $table->foreign('id_ciudad')->references('id')->on('ciudades');
             $table->timestamps();
         });
     }

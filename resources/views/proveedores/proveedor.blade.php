@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para agregar empresa  -->
+    <!-- Modal de Formulario para agregar proveedores  -->
     <div id="agregarProveedores" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -52,6 +52,10 @@
                 <form action="" method="POST">
                     <div class="modal-body">
                         @csrf
+                        <div class="form-group">
+                            <label>Cedula:</label>
+                            <input type="number" min="0" name="cedula" value="" class="form-control" placeholder="Escribe el email">
+                        </div>
                         <div class="form-group">
                             <label>Nombre:</label>
                             <input name="nombre" type="text" class="form-control"  value="" placeholder="Escribe el Nit de la empresa">
@@ -66,11 +70,11 @@
                         </div>
                         <div class="form-group">
                             <label>Telefono:</label>
-                            <input type="number" min="0" name="email" value="" class="form-control" placeholder="Escribe el email">
+                            <input type="number" min="0" name="telefono" value="" class="form-control" placeholder="Escribe el email">
                         </div>
                         <div class="form-group">
                             <label>Empresa:</label>
-                            <select class="form-control" name="ciudad"  required>
+                            <select class="form-control" name="id_empresa" required>
                                 <option value="">Falabella</option>
                                 <option value="">Ecom</option>
                                 <option value="">Fecode</option>

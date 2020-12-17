@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para crear empresa  -->
+    <!-- Modal de Formulario para crear sucursal -->
     <div id="agregarSucursales" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -68,7 +68,7 @@
                         @csrf
                         <div class="form-group">
                             <label>Nit:</label>
-                            <input name="nit" type="number" min="0" class="form-control"  value="" placeholder="Escribe el Nit de la empresa">
+                            <input name="nit_sucursal" type="number" min="0" class="form-control"  value="" placeholder="Escribe el Nit de la empresa">
                         </div>
                         <div class="form-group">
                             <label>Nombre:</label>
@@ -258,7 +258,7 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para editar empresa  -->
+    <!-- Modal de grafica sucursal  -->
     <div id="GraficaSucursales" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
