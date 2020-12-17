@@ -20,10 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('id_rol');
-            $table->foreign('id_rol')->references('id')->on('roles');
-            $table->unsignedBigInteger('id_empresa');
-            $table->foreign('id_empresa')->references('id')->on('empresas');
+            $table->unsignedBigInteger('id_rol')->nullable();
+            $table->foreign('id_rol')->references('id')->on('roles')->onDelete('set null');
+            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('set null');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();

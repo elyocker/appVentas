@@ -17,8 +17,8 @@ class CreateCiudadesTable extends Migration
             $table->id()->autoIncrement();
             $table->integer('codigo')->unique();
             $table->string('ciudad')->unique();
-            $table->unsignedBigInteger('id_departamento');
-            $table->foreign('id_departamento')->references('id')->on('departamentos');
+            $table->unsignedBigInteger('id_departamento')->nullable();
+            $table->foreign('id_departamento')->references('id')->on('departamentos')->onDelete('set null');
             $table->timestamps();
         });
     }

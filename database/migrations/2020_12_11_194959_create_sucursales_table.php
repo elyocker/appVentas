@@ -19,14 +19,14 @@ class CreateSucursalesTable extends Migration
             $table->string('nombre');
             $table->integer('telefono')->nullable();
             $table->string('email');
-            $table->unsignedBigInteger('id_departamento');
-            $table->foreign('id_departamento')->references('id')->on('departamentos');
-            $table->unsignedBigInteger('id_ciudad');
-            $table->foreign('id_ciudad')->references('id')->on('ciudades');
-            $table->unsignedBigInteger('id_empresa');
-            $table->foreign('id_empresa')->references('id')->on('empresas');
-            $table->unsignedBigInteger('id_usuario');
-            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->unsignedBigInteger('id_departamento')->nullable();
+            $table->foreign('id_departamento')->references('id')->on('departamentos')->onDelete('set null');
+            $table->unsignedBigInteger('id_ciudad')->nullable();
+            $table->foreign('id_ciudad')->references('id')->on('ciudades')->onDelete('set null');
+            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('set null');
+            $table->unsignedBigInteger('id_usuario')->nullable();
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -16,8 +16,8 @@ class CreateBodegasTable extends Migration
         Schema::create('bodegas', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->integer('codigo');
-            $table->unsignedBigInteger('id_categoria');
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->unsignedBigInteger('id_categoria')->nullable();
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('set null');
             $table->string('producto');
             $table->integer('cantidad');
             $table->integer('valor_und');

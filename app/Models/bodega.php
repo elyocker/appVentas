@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class bodega extends Model
 {
     use HasFactory;
+
+    public function categoria()
+    {
+        return $this->belongsToMany(bodega::class, 'id_categoria');
+    }
+
+    
 }
+    

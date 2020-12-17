@@ -19,10 +19,10 @@ class CreateEmpresasTable extends Migration
             $table->string('nombre');
             $table->integer('telefono')->nullable();
             $table->string('email')->unique();
-            $table->unsignedBigInteger('id_departamento');
-            $table->foreign('id_departamento')->references('id')->on('departamentos');
-            $table->unsignedBigInteger('id_ciudad');
-            $table->foreign('id_ciudad')->references('id')->on('ciudades');
+            $table->unsignedBigInteger('id_departamento')->nullable();
+            $table->foreign('id_departamento')->references('id')->on('departamentos')->onDelete('set null');
+            $table->unsignedBigInteger('id_ciudad')->nullable();
+            $table->foreign('id_ciudad')->references('id')->on('ciudades')->onDelete('set null');
             $table->timestamps();
         });
     }

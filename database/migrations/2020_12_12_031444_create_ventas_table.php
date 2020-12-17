@@ -22,12 +22,12 @@ class CreateVentasTable extends Migration
             $table->integer('iva');
             $table->integer('valor_total');
             $table->timestamp('fecha');
-            $table->unsignedBigInteger('id_empresa');
-            $table->foreign('id_empresa')->references('id')->on('empresas');
-            $table->unsignedBigInteger('id_sucursal');
-            $table->foreign('id_sucursal')->references('id')->on('sucursales');
-            $table->unsignedBigInteger('id_bodega');
-            $table->foreign('id_bodega')->references('id')->on('bodegas');
+            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('set null');
+            $table->unsignedBigInteger('id_sucursal')->nullable();
+            $table->foreign('id_sucursal')->references('id')->on('sucursales')->onDelete('set null');
+            $table->unsignedBigInteger('id_bodega')->nullable();
+            $table->foreign('id_bodega')->references('id')->on('bodegas')->onDelete('set null');
             $table->timestamps();
         });
     }

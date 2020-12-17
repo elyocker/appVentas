@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ciudades;
+use App\Models\departamento;
 use App\Models\Empresa;
 use Illuminate\Http\Request;
 
@@ -13,8 +15,11 @@ class EmpresaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('empresas.empresa');
+    {   
+        $ciudad = ciudades::all();
+        $departamento = departamento::all();
+        $empresas = Empresa::all();
+        return view('empresas.empresa', compact('ciudad','departamento','empresas'));
     }
 
     /**
@@ -35,7 +40,10 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $empresa = $request->all();
+        $empresa = $request->except('_token');
+        Empresa::insert($empresa);
+        return back()->with('mensaje','La empresa se registro correctamente');
     }
 
     /**
@@ -55,9 +63,10 @@ class EmpresaController extends Controller
      * @param  \App\Models\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empresa $empresa)
+    public function edit($id)
     {
-        //
+        $editEmpresa = Empresa::findOrFail($id);
+       return back()->compact('editEmpresa');
     }
 
     /**
@@ -78,8 +87,14 @@ class EmpresaController extends Controller
      * @param  \App\Models\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empresa $empresa)
+    public function destroy($id)
     {
-        //
+
+        $empresa = Empresa::findOrFail($id);
+        Empresa::destroy($empresa->id); //le paso el id para eliminarlo por completo
+
+        return back()->with('mensaje','La empresa se Elimino correctamente');
+
+
     }
 }

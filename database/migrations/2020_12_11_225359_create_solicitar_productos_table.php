@@ -16,15 +16,15 @@ class CreateSolicitarProductosTable extends Migration
         Schema::create('solicitar_productos', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('producto'); 
-            $table->unsignedBigInteger('id_categoria');
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->unsignedBigInteger('id_categoria')->nullable();
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('set null');
             $table->integer('cantidad');
             $table->date('fecha_garantia')->nullable();
             $table->date('fecha_Entrega');
-            $table->unsignedBigInteger('id_empresa');
-            $table->foreign('id_empresa')->references('id')->on('empresas');
-            $table->unsignedBigInteger('id_sucursal');
-            $table->foreign('id_sucursal')->references('id')->on('sucursales');
+            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('set null');
+            $table->unsignedBigInteger('id_sucursal')->nullable();
+            $table->foreign('id_sucursal')->references('id')->on('sucursales')->onDelete('set null');
             $table->timestamps();
         });
     }

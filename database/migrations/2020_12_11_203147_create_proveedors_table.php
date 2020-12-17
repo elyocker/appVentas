@@ -17,12 +17,12 @@ class CreateProveedorsTable extends Migration
             $table->id()->autoIncrement();
             $table->integer('cedula');
             $table->string('nombre');
-            $table->unsignedBigInteger('id_categoria');
-            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->unsignedBigInteger('id_categoria')->nullable();
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('set null');
             $table->string('producto');
             $table->integer('telefono');
-            $table->unsignedBigInteger('id_empresa');
-            $table->foreign('id_empresa')->references('id')->on('empresas');
+            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('set null');
             $table->timestamps();
         });
     }

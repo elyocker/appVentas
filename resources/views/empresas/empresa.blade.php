@@ -19,33 +19,40 @@
                   <tr class="center">
                     <th scope="col">Nit</th>
                     <th scope="col">Empresa</th>
-                    <th scope="col">Dirección</th>
                     <th scope="col">Telefono</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">Acciones</th>
                     <th scope="col">Admin</th>
                   </tr>
                 </thead>
                 <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Fallabela</td>
-                            <td>calle 45</td>
-                            <td>14578888</td>
-                            <td>cali,valle</td>
+
+                       @foreach ($empresas as $item)
+                       <tr>
+                            <th scope="row">{{$item->nit}}</th>
+                            <td>{{$item->nombre}}</td>
+                            <td>{{$item->telefono}}</td>
+                            <td>{{$item->email}}</td>
+                            {{-- asi aparece los datos cuando son relacionados y queremos que aparezca un dato en especifico --}}
+                            <td>{{$item->ciudad->ciudad}},{{$item->departamento->departamento}}</td>
                             <td>
                                 {{-- se pasa el id para editar la sucursal  --}}
-                                <a href="" class="btn btn-warning" data-toggle="modal" data-target="#editarEmpresa"><i class="fas fa-pen"></i></a>
-                                {{-- se utliza el metodo de eliminar         --}}
+                                <a href="{{route('empresas.edit', $item->id) }}" class="btn btn-warning" data-toggle="modal" data-target="#editarEmpresa"><i class="fas fa-pen"></i></a>
                                 
-                                   
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                               
+                                {{-- se utliza el metodo de eliminar         --}}
+                                <form action="{{route('empresas.destroy', $item->id)}}" class="d-inline" method="POST">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+
                             </td>
                             <td>
                                 <a href="" class="btn btn-info" data-toggle="modal" data-target="#adminEmpresa"><i class="fas fa-info-circle"></i></a>
                             </td>
-                        </tr>                   
+                        </tr> 
+                       @endforeach                  
                 </tbody>
             </table>
 
@@ -61,7 +68,7 @@
                     <h4 class="modal-title">Registra la nueva empresa</h4>
                     <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{ route('empresas.store') }}" method="POST">
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
@@ -82,31 +89,24 @@
                         </div>
                         <div class="form-group">
                             <label>Departamento:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value=""> </option>
-                                <option value="">valle</option>
-                                <option value="">distrito capital</option>
-                                <option value="">antioquia</option>
+                            <select class="form-control" name="id_departamento"  required>
+                                <option value=""></option>
+                                @foreach ($departamento as $item)
+                                    <option value="{{$item->id}}">{{$item->departamento}}</option>
+                                @endforeach
+                                
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Ciudad:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value=""> </option>
-                                <option value="">cali</option>
-                                <option value="">bogota</option>
-                                <option value="">medellin</option>
-                            </select>
-                        </div>
-                        
-                        {{-- <div class="form-group">
-                            <select class="form-control" name="id_empresa" id="sel1" required>
-                                @foreach ($empresa as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                            <select class="form-control" name="id_ciudad"  required>
+                                <option value=""></option>
+                                @foreach ($ciudad as $item)
+                                    <option value="{{$item->id}}">{{$item->ciudad}}</option>
                                 @endforeach
                             </select>
-                        </div> --}}
+                        </div>
 
                     </div>
 
@@ -133,25 +133,28 @@
                         @csrf
                         <div class="form-group">
                             <label>Nit:</label>
-                            <input name="nit" type="number" min="0" class="form-control" disabled value="12121" placeholder="Escribe el Nit de la empresa">
+                            <input name="nit" type="number" min="0" class="form-control" disabled value="">
                         </div>
                         <div class="form-group">
                             <label>Nombre:</label>
-                            <input type="text" name="nombre" class="form-control" value="" placeholder="Escribe el nombre de la empresa">
+                            <input type="text" name="nombre" class="form-control" value="">
                         </div>
                         <div class="form-group">
                             <label>Telefono:</label>
-                            <input type="number" min="0" name="telefono" value="" class="form-control" placeholder="Escribe el telefono">
+                            <input type="number" min="0" name="telefono" value="" class="form-control" >
                         </div>
                         <div class="form-group">
                             <label>Email:</label>
-                            <input type="email" name="email" value="" class="form-control" placeholder="Escribe el email" disabled>
+                            <input type="email" name="email" value="" class="form-control"  disabled>
                         </div>
                         <div class="form-group">
-                            <label>Ubicacion:</label>
+                            <label>Departamento:</label>
                             <select class="form-control" name="ciudad"  required>
-                                <option value=""> </option>
-                                <option value="">valle</option>
+                                <option value=""></option>
+                                @foreach ($departamento as $item)
+                                    <option value="{{$item->id}}">{{$item->departamento}}</option>
+                                @endforeach
+                                
                                 <option value="">distrito capital</option>
                                 <option value="">antioquia</option>
                             </select>
@@ -160,10 +163,10 @@
                         <div class="form-group">
                             <label>Ciudad:</label>
                             <select class="form-control" name="ciudad"  required>
-                                <option value=""> </option>
-                                <option value="">cali</option>
-                                <option value="">bogota</option>
-                                <option value="">medellin</option>
+                                <option value=""></option>
+                                @foreach ($ciudad as $item)
+                                    <option value="{{$item->id}}">{{$item->ciudad}}</option>
+                                @endforeach
                             </select> 
                         </div>
                         
@@ -186,7 +189,7 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para editar empresa  -->
+    <!-- Modal de Formulario para agregar admin  -->
     <div id="adminEmpresa" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -219,7 +222,10 @@
                         <div class="form-group">
                             <label>Empresa:</label>
                             <select class="form-control" name="ciudad"  required>
-                                <option value="">Ecom</option>
+                                @foreach ($empresas as $item)
+                                    <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                @endforeach
+                                
                             </select>
                         </div>
 
@@ -242,4 +248,15 @@
 
 @section('js')
     <script src="{{asset('js/app.js')}}"></script>
+    @if (session('mensaje')) 
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            type: 'success',
+            title: '{{ session('mensaje') }}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+@endif
 @stop
