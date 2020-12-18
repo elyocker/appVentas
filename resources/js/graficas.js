@@ -40,6 +40,7 @@
  var sabado = "#F74983";
  var domingo = "#02A320";
 
+ 
  var myPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
@@ -138,3 +139,5 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+

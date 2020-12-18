@@ -25,9 +25,9 @@ Route::resource('', HomeController::class);
 
 Route::get('/dashboard', [Controller::class, 'index']);
 
-// Route::get('/register', function () {
-//     return view('auth.register');
-// });
+Route::get('/registro', function () {
+    return view('auth.register');
+});
 
 // se llama todos los recursos del modulo de empresas
 Route::resource('empresas', EmpresaController::class);

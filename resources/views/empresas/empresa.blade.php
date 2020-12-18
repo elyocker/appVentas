@@ -38,8 +38,72 @@
                             <td>{{$item->ciudad->ciudad}},{{$item->departamento->departamento}}</td>
                             <td>
                                 {{-- se pasa el id para editar la sucursal  --}}
-                                <a href="{{route('empresas.edit', $item->id) }}" class="btn btn-warning" data-toggle="modal" data-target="#editarEmpresa"><i class="fas fa-pen"></i></a>
-                                
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarEmpresa"><i class="fas fa-pen"></i></button>
+                                   
+                                    {{-- ==================================================================================================
+                                                             MODAL EDITAR
+                                    ================================================================================================== --}}
+                                    <div id="editarEmpresa" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Editar la empresa</h4>
+                                                    <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <form action="{{route('empresas.update', $item->id)}}" method="POST">
+
+                                                    <div class="modal-body">
+                                                        @method('PATCH')
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label>Nit:</label>
+                                                            <input name="nit" type="number" min="0" class="form-control" disabled value="{{$item->nit}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Nombre:</label>
+                                                            <input type="text" name="nombre" class="form-control" value="{{$item->nombre}}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Telefono:</label>
+                                                            <input type="number" min="0" name="telefono" value="{{$item->telefono}}" class="form-control" >
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Email:</label>
+                                                            <input type="email" name="email" value="{{$item->email}}" class="form-control"  disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Departamento:</label>
+                                                            <select class="form-control" name="id_departamento" required>
+                                                                <option value="{{$item->departamento->id}}">{{$item->departamento->departamento}}</option>
+                                                                @foreach ($departamento as $item)
+                                                                    <option value="{{$item->id}}">{{$item->departamento}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Ciudad:</label>
+                                                            <select class="form-control" name="id_ciudad"  required>
+                                                                @foreach ($ciudad as $item)
+                                                                    <option value="{{$item->id}}">{{$item->ciudad}}</option>
+                                                                @endforeach
+                                                            </select> 
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-success">Registrar</button>
+                                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- ==================================================================================================
+                                                            FINAL DE LA MODAL EDITAR
+                                    ================================================================================================== --}}
+
                                 {{-- se utliza el metodo de eliminar         --}}
                                 <form action="{{route('empresas.destroy', $item->id)}}" class="d-inline" method="POST">
                                     @method('delete')
@@ -119,76 +183,6 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para editar empresa  -->
-    <div id="editarEmpresa" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Editar la empresa</h4>
-                    <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
-                </div>
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        @csrf
-                        <div class="form-group">
-                            <label>Nit:</label>
-                            <input name="nit" type="number" min="0" class="form-control" disabled value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Nombre:</label>
-                            <input type="text" name="nombre" class="form-control" value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Telefono:</label>
-                            <input type="number" min="0" name="telefono" value="" class="form-control" >
-                        </div>
-                        <div class="form-group">
-                            <label>Email:</label>
-                            <input type="email" name="email" value="" class="form-control"  disabled>
-                        </div>
-                        <div class="form-group">
-                            <label>Departamento:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value=""></option>
-                                @foreach ($departamento as $item)
-                                    <option value="{{$item->id}}">{{$item->departamento}}</option>
-                                @endforeach
-                                
-                                <option value="">distrito capital</option>
-                                <option value="">antioquia</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Ciudad:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value=""></option>
-                                @foreach ($ciudad as $item)
-                                    <option value="{{$item->id}}">{{$item->ciudad}}</option>
-                                @endforeach
-                            </select> 
-                        </div>
-                        
-                        {{-- <div class="form-group">
-                            <select class="form-control" name="id_empresa" id="sel1" required>
-                                @foreach ($empresa as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Registrar</button>
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal de Formulario para agregar admin  -->
     <div id="adminEmpresa" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -217,7 +211,7 @@
                         
                         <div class="form-group">
                             <label>Repita la Contraseña:</label>
-                            <input type="password_confirmation"  name="repita_password" value="" class="form-control" placeholder="Escribe la contraseña">
+                            <input type="password"  name="password_confirmation" value="" class="form-control" placeholder="Escribe la contraseña">
                         </div>
                         <div class="form-group">
                             <label>Empresa:</label>

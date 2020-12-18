@@ -66,7 +66,7 @@ class EmpresaController extends Controller
     public function edit($id)
     {
         $editEmpresa = Empresa::findOrFail($id);
-       return back()->compact('editEmpresa');
+       return back(compact('editEmpresa'));
     }
 
     /**
@@ -76,9 +76,15 @@ class EmpresaController extends Controller
      * @param  \App\Models\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empresa $empresa)
+    public function update(request $request, $id)
     {
-        //
+
+        $empresa = request()->all();
+        $empresa= request()->except('_method','_token');
+        Empresa::where('id', '=', $id)->update($empresa);
+
+        return back()->with('mensaje','Se modifico correctamente');
+
     }
 
     /**
