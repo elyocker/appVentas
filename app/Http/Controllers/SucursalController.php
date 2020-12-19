@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ciudades;
+use App\Models\departamento;
+use App\Models\Empresa;
 use App\Models\sucursal;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SucursalController extends Controller
@@ -14,7 +18,12 @@ class SucursalController extends Controller
      */
     public function index()
     {
-        return view('empresas.sucursales');
+        $respon = User::all();
+        $empresa = Empresa::all();
+        $ciudad = ciudades::all();
+        $departamento = departamento::all();
+        $sucursales = sucursal::all();
+        return view('empresas.sucursales', compact('empresa','ciudad','departamento','respon','sucursales'));
     }
 
     /**
@@ -35,7 +44,10 @@ class SucursalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sucursal = request()->all();
+        $sucursal = request()->except('_token');
+        sucursal::insert($sucursal);
+        return back()->with('success','Se agrego correctamente');
     }
 
     /**
@@ -55,9 +67,14 @@ class SucursalController extends Controller
      * @param  \App\Models\sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function edit(sucursal $sucursal)
+    public function edit($id)
     {
-        //
+        $sucursal = sucursal::findOrFail($id);
+        $respon = User::all();
+        $empresa = Empresa::all();
+        $ciudad = ciudades::all();
+        $departamento = departamento::all();
+        return view('empresas.editSucursal', compact('empresa','ciudad','departamento','respon','sucursal'));
     }
 
     /**
@@ -67,9 +84,12 @@ class SucursalController extends Controller
      * @param  \App\Models\sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, sucursal $sucursal)
+    public function update($request, $id)
     {
-        //
+        $sucursal = request()->all();
+        $sucursal = request()->except('_token','_method');
+        sucursal::where('id', '=', $id)->update($sucursal);
+        return back()->with('success', 'la sucursal se modifico correctamente');
     }
 
     /**
@@ -78,8 +98,10 @@ class SucursalController extends Controller
      * @param  \App\Models\sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(sucursal $sucursal)
+    public function destroy($id)
     {
-        //
+        $sucursal = sucursal::findOrFail($id);
+        sucursal::destroy($sucursal->id);
+        return back()->with('delete','la sucursal se elimino correctamente');
     }
 }

@@ -20,7 +20,7 @@
                     <th scope="col">Nit</th>
                     <th scope="col">Razon Social</th>
                     <th scope="col">Responsable</th>
-                    <th scope="col">Dirección</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Ubicacion</th>
                     
@@ -29,25 +29,31 @@
                   </tr>
                 </thead>
                 <tbody>
+                    @foreach ($sucursales as $item)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Fallabela</td>
-                            <td>Santiago ramirez</td>
-                            <td>calle 45</td>
-                            <td>14578888</td>
-                            <td>envigado,Antioquia</td>
+                            <th scope="row">{{$item->nit_sucursal}}</th>
+                            <td>{{$item->nombre}}</td>
+                            <td>{{$item->usuario->name}}</td>
+                            <td>{{$item->email}}</td>
+                            <td>{{$item->telefono}}</td>
+                            <td>{{$item->ciudad->ciudad}},{{$item->departamento->departamento}}</td>
                             <td>
                                 {{-- se pasa el id para editar la sucursal  --}}
-                                <a href="" class="btn btn-warning" data-toggle="modal" data-target="#editarSucursales"><i class="fas fa-pen"></i></a>
-                                {{-- se utliza el metodo de eliminar         --}}
-                                   
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                <a href="{{route('sucursales.edit', $item->id)}}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                {{-- se utliza el metodo de eliminar--}}
+                                <form action="{{route('sucursales.destroy', $item->id)}}" class="d-inline sucursal_eliminar" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
                                 <a href="" class="btn btn-info" data-toggle="modal" data-target="#registroUsuarios"><i class="fas fa-info-circle"></i></a>
                             </td>
                             <td>
                                 <a href="" class="btn btn-success" data-toggle="modal" data-target="#GraficaSucursales"><i class="fas fa-chart-line"></i></a>
                             </td>
-                        </tr>                   
+                        </tr> 
+                    @endforeach
+                                          
                 </tbody>
             </table>
 
@@ -55,146 +61,77 @@
     </div>
 
     <!-- Modal de Formulario para crear sucursal -->
-    <div id="agregarSucursales" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+    <div id="agregarSucursales" class="modal fade" role="dialog" aria-labelledby="agregarSucursales"  aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Registra la nueva Sucursal</h4>
                     <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="" method="POST">
-                    <div class="modal-body">
+                <form action="{{route('sucursales.store')}}" method="POST">
+                    <div class="modal-body row">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label>Nit:</label>
                             <input name="nit_sucursal" type="number" min="0" class="form-control"  value="" placeholder="Escribe el Nit de la empresa">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label>Nombre:</label>
                             <input type="text" name="nombre" class="form-control" value="" placeholder="Escribe el nombre de la empresa">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label>Telefono:</label>
                             <input type="number" min="0" name="telefono" value="" class="form-control" placeholder="Escribe el telefono">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label>Email:</label>
                             <input type="email" name="email" value="" class="form-control" placeholder="Escribe el email">
                         </div>
-                        <div class="form-group">
-                            <label>Empresa:</label>
-                            <input type="text" name="id_empresa" value="Fallabela" disabled class="form-control" >
-                        </div>
-
-                        <div class="form-group">
+                        
+                        
+                        <div class="form-group col-md-6">
                             <label>Departamento:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value=""> </option>
-                                <option value="">valle</option>
-                                <option value="">distrito capital</option>
-                                <option value="">antioquia</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Ciudad:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value=""> </option>
-                                <option value="">cali</option>
-                                <option value="">bogota</option>
-                                <option value="">medellin</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Administrador:</label>
-                            <input type="text"  name="administrador" value="" class="form-control" placeholder="Escribe el responsable de la tienda">
-                        </div>
-                        
-                        {{-- <div class="form-group">
-                            <select class="form-control" name="id_empresa" id="sel1" required>
-                                @foreach ($empresa as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                            <select class="form-control" name="id_departamento" required>
+                                @foreach ($departamento as $dep)
+                                    <option value="{{$dep->id}}">{{$dep->departamento}}</option>
                                 @endforeach
                             </select>
-                        </div> --}}
+                        </div>
 
+                        <div class="form-group col-md-6">
+                            <label>Ciudad:</label>
+                            <select class="form-control" name="id_ciudad" required>
+                                @foreach ($ciudad as $ciu)
+                                    <option value="{{$ciu->id}}">{{$ciu->ciudad}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Empresa:</label>
+                            <select class="form-control" name="id_empresa" required>
+                                @foreach ($empresa as $empre)
+                                    <option value="{{$empre->id}}">{{$empre->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Administrador:</label>
+                            <select class="form-control" name="id_usuario" required>
+                                @foreach ($respon as $res)
+                                    <option value="{{$res->id}}">{{$res->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        
+                    
                     </div>
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Registrar</button>
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Formulario para editar sucursal -->
-    <div id="editarSucursales" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Registra la nueva Sucursal</h4>
-                    <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
-                </div>
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        @csrf
-                        <div class="form-group">
-                            <label>Nit:</label>
-                            <input name="nit" type="number" min="0" class="form-control"  value="12121">
-                        </div>
-                        <div class="form-group">
-                            <label>Nombre:</label>
-                            <input type="text" name="nombre" class="form-control" value="outlet fallabela">
-                        </div>
-                        <div class="form-group">
-                            <label>Telefono:</label>
-                            <input type="number" min="0" name="telefono" value="785222" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Email:</label>
-                            <input type="email" name="email" value="envigado@fallabela.com" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Empresa:</label>
-                            <input type="text" name="id_empresa" value="Fallabela" disabled class="form-control" >
-                        </div>
-
-                        <div class="form-group">
-                            <label>Departamento:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value="">antioquia</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Ciudad:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                <option value="">Envigado</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Administrador:</label>
-                            <input type="text"  name="administrador" value="Roger ramirez" class="form-control" >
-                        </div>
-                        
-                        {{-- <div class="form-group">
-                            <select class="form-control" name="id_empresa" id="sel1" required>
-                                @foreach ($empresa as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Modificar</button>
                         <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
                     </div>
                 </form>
@@ -285,6 +222,31 @@
 
 @section('js')
     <script src="{{asset('js/app.js')}}"></script>
+        @if (session('delete')) 
+            <script>
+
+                Swal.fire(
+
+                    'Se elimino',
+                    '{{ session('delete')}}',
+                    'success'
+                );
+            </script>
+        @endif
+
+        @if (session('success')) 
+            <script>
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            </script>
+        @endif
+
+
     <script>
         //  ==========================================
         //         grafica de sucursal
@@ -326,6 +288,31 @@
                     }]
                 }
             }
+        });
+        
+
+
+        $('.sucursal_eliminar').submit(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Estas seguro que deseas eliminarlo?',
+                text: 'Una vez hagas lo elimines no hay vuelta atras!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'si, eliminar!'
+
+                }).then((result) => {
+
+                if (result.value) {
+
+                    this.submit();
+
+                    
+                }
+            });
         });
     </script>
 @stop

@@ -38,74 +38,10 @@
                             <td>{{$item->ciudad->ciudad}},{{$item->departamento->departamento}}</td>
                             <td>
                                 {{-- se pasa el id para editar la sucursal  --}}
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarEmpresa"><i class="fas fa-pen"></i></button>
-                                   
-                                    {{-- ==================================================================================================
-                                                             MODAL EDITAR
-                                    ================================================================================================== --}}
-                                    <div id="editarEmpresa" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Editar la empresa</h4>
-                                                    <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
-                                                </div>
-                                                <form action="{{route('empresas.update', $item->id)}}" method="POST">
-
-                                                    <div class="modal-body">
-                                                        @method('PATCH')
-                                                        @csrf
-                                                        <div class="form-group">
-                                                            <label>Nit:</label>
-                                                            <input name="nit" type="number" min="0" class="form-control" disabled value="{{$item->nit}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Nombre:</label>
-                                                            <input type="text" name="nombre" class="form-control" value="{{$item->nombre}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Telefono:</label>
-                                                            <input type="number" min="0" name="telefono" value="{{$item->telefono}}" class="form-control" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Email:</label>
-                                                            <input type="email" name="email" value="{{$item->email}}" class="form-control"  disabled>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Departamento:</label>
-                                                            <select class="form-control" name="id_departamento" required>
-                                                                <option value="{{$item->departamento->id}}">{{$item->departamento->departamento}}</option>
-                                                                @foreach ($departamento as $item)
-                                                                    <option value="{{$item->id}}">{{$item->departamento}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Ciudad:</label>
-                                                            <select class="form-control" name="id_ciudad"  required>
-                                                                @foreach ($ciudad as $item)
-                                                                    <option value="{{$item->id}}">{{$item->ciudad}}</option>
-                                                                @endforeach
-                                                            </select> 
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success">Registrar</button>
-                                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- ==================================================================================================
-                                                            FINAL DE LA MODAL EDITAR
-                                    ================================================================================================== --}}
-
+                                <a href="{{route('empresas.edit', $item->id)}}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+               
                                 {{-- se utliza el metodo de eliminar         --}}
-                                <form action="{{route('empresas.destroy', $item->id)}}" class="d-inline" method="POST">
+                                <form action="{{route('empresas.destroy', $item->id)}}" class="d-inline formulario-eliminar" method="POST">
                                     @method('delete')
                                     @csrf
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
@@ -116,6 +52,7 @@
                                 <a href="" class="btn btn-info" data-toggle="modal" data-target="#adminEmpresa"><i class="fas fa-info-circle"></i></a>
                             </td>
                         </tr> 
+                                    
                        @endforeach                  
                 </tbody>
             </table>
@@ -128,7 +65,7 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-dark">
                     <h4 class="modal-title">Registra la nueva empresa</h4>
                     <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                 </div>
@@ -137,40 +74,64 @@
                         @csrf
                         <div class="form-group">
                             <label>Nit:</label>
-                            <input name="nit" type="number" min="0" class="form-control"  value="" placeholder="Escribe el Nit de la empresa">
+                            <input name="nit" type="number" min="0" class="form-control"  value="{{old('nit')}}" placeholder="Escribe el Nit de la empresa">
                         </div>
+                        @error('nit')
+                            <div class="alert alert-warning">
+                                <small>{{$message}}</small>
+                            </div>   
+                        @enderror
                         <div class="form-group">
                             <label>Nombre:</label>
-                            <input type="text" name="nombre" class="form-control" value="" placeholder="Escribe el nombre de la empresa">
+                            <input type="text" name="nombre" class="form-control" value="{{old('nombre')}}" placeholder="Escribe el nombre de la empresa">
                         </div>
+                        @error('nombre')
+                            <div class="alert alert-warning">
+                                <small>{{$message}}</small>
+                            </div> 
+                        @enderror
                         <div class="form-group">
                             <label>Telefono:</label>
-                            <input type="number" min="0" name="telefono" value="" class="form-control" placeholder="Escribe el telefono">
+                            <input type="number" min="0" name="telefono" value="{{old('telefono')}}" class="form-control" placeholder="Escribe el telefono">
                         </div>
                         <div class="form-group">
                             <label>Email:</label>
-                            <input type="email" name="email" value="" class="form-control" placeholder="Escribe el email">
+                            <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Escribe el email">
                         </div>
+                        @error('email')
+                            <div class="alert alert-warning">
+                                <small>{{$message}}</small>
+                            </div> 
+                        @enderror
                         <div class="form-group">
                             <label>Departamento:</label>
-                            <select class="form-control" name="id_departamento"  required>
-                                <option value=""></option>
+                            <select class="form-control" name="id_departamento">
+                                <option value="{{old('id_departamento')}}"></option>
                                 @foreach ($departamento as $item)
                                     <option value="{{$item->id}}">{{$item->departamento}}</option>
                                 @endforeach
-                                
                             </select>
                         </div>
+                        @error('id_departamento')
+                            <div class="alert alert-warning">
+                                <small>{{$message}}</small>
+                            </div> 
+                        @enderror
 
                         <div class="form-group">
                             <label>Ciudad:</label>
-                            <select class="form-control" name="id_ciudad"  required>
-                                <option value=""></option>
+                            <select class="form-control" name="id_ciudad">
+                                <option value="{{old('id_ciudad')}}"></option>
                                 @foreach ($ciudad as $item)
                                     <option value="{{$item->id}}">{{$item->ciudad}}</option>
                                 @endforeach
                             </select>
                         </div>
+                        @error('id_ciudad')
+                        <div class="alert alert-warning">
+                            <small>{{$message}}</small>
+                        </div> 
+                        @enderror
 
                     </div>
 
@@ -242,15 +203,57 @@
 
 @section('js')
     <script src="{{asset('js/app.js')}}"></script>
-    @if (session('mensaje')) 
-    <script>
-        Swal.fire({
-            position: 'top-end',
-            type: 'success',
-            title: '{{ session('mensaje') }}',
-            showConfirmButton: false,
-            timer: 1500
+
+        @if (session('error')) 
+            <script>
+
+                Swal.fire(
+
+                    'Se elimino ',
+                    '{{ session('error')}}',
+                    'success'
+                );
+            </script>
+        @endif
+
+
+        <script>
+        @if (session('success')) 
+            Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        @endif
+
+        $('.formulario-eliminar').submit(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Estas seguro que deseas eliminarlo?',
+                text: 'Una vez hagas lo elimines no hay vuelta atras!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'si, eliminar!'
+
+                }).then((result) => {
+
+                if (result.value) {
+
+                    this.submit();
+
+                    
+                }
+            });
         });
-    </script>
-@endif
+
+        </script>
+
+       
+    
+    
 @stop

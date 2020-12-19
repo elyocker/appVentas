@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class sucursal extends Model
 {
+    public $table = "sucursales"; // solucion por si laravel no reconoce los plurales
+
     use HasFactory;
 
     public function departamento()
@@ -21,8 +23,8 @@ class sucursal extends Model
     {
         return $this->belongsTo(empresa::class, 'id_empresa');
     }
-    public function users()
+    public function usuario()
     {
-        return $this->belongsToMany(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_usuario');
     }
 }
