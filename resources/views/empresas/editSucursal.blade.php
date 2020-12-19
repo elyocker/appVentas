@@ -84,7 +84,9 @@
 
                         <div class="form-group col-md-4 col-sm-2">
                             <label>Empresa:</label>
-                            <input type="text" name="id_empresa" value="{{old('id_empresa',$sucursal->empresa->nombre)}}" class="form-control" readonly>    
+                            <select class="form-control" name="id_empresa" readonly>
+                                <option value="{{old('id_empresa',$sucursal->empresa->id)}}">{{$sucursal->empresa->nombre}}</option>
+                            </select> 
                         </div>
 
                         <div class="form-group col-md-4 col-sm-2">

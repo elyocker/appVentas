@@ -25,7 +25,7 @@ Route::resource('', HomeController::class);
 
 Route::get('/dashboard', [Controller::class, 'index']);
 
-Route::get('/registro', function () {
+Route::get('/edwin', function () {
     return view('auth.register');
 });
 

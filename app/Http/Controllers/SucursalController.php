@@ -84,7 +84,7 @@ class SucursalController extends Controller
      * @param  \App\Models\sucursal  $sucursal
      * @return \Illuminate\Http\Response
      */
-    public function update($request, $id)
+    public function update(request $request, $id)
     {
         $sucursal = request()->all();
         $sucursal = request()->except('_token','_method');
