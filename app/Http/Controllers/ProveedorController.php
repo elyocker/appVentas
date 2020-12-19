@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categorias;
+use App\Models\Empresa;
 use App\Models\proveedor;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,10 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        return view('proveedores.proveedor');
+        $categoria = categorias::all();
+        $empresa = Empresa::all();
+        $prove = proveedor::all();
+        return view('proveedores.proveedor', compact('categoria','empresa','prove'));
     }
 
     /**
@@ -33,9 +38,12 @@ class ProveedorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(request $request)
     {
-        //
+        $prove = $request->all();
+        $prove = $request->except('_token');
+        proveedor::insert($prove);
+        return back()->with('success', 'El proveedor se registro correctamente!');
     }
 
     /**
@@ -78,8 +86,10 @@ class ProveedorController extends Controller
      * @param  \App\Models\proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(proveedor $proveedor)
+    public function destroy($id)
     {
-        //
+        $prove = proveedor::findOrFail($id);
+        proveedor::destroy($prove->id);
+        return back()->with('delete','El proveedor se elimino correctamente');
     }
 }

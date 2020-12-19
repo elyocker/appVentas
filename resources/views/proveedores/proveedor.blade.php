@@ -17,24 +17,30 @@
                   <tr class="center">
                     <th scope="col">Nombre</th>
                     <th scope="col">categoria</th>
+                    <th scope="col">Producto</th>
                     <th scope="col">Telefono</th>
-                    <th scope="col">Direccion</th>
                     <th scope="col">Empresa</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
+                    @foreach ($prove as $pro)
                         <tr>
-                            <td>humberto rojas</td>
-                            <td>lacteos</td>
-                            <td>5785455</td>
-                            <td>calle 122</td>
-                            <td>Falabella</td>
+                            <td>{{$pro->nombre}}</td>
+                            <td>{{$pro->categoria->categoria}}</td>
+                            <td>{{$pro->producto}}</td>
+                            <td>{{$pro->telefono}}</td>
+                            <td>{{$pro->empresa->nombre}}</td>
                             <td>
                                 <a href="" class="btn btn-warning" data-toggle="modal" data-target="#editarProveedores"><i class="fas fa-pen"></i></a>
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                <form action="{{route('proveedores.destroy', $pro->id)}}" method="POST" class="d-inline formulario-eliminar">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
                             </td>
-                        </tr>                   
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -45,11 +51,11 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Editar Proveedor</h4>
+                <div class="modal-header bg-dark">
+                    <h4 class="modal-title">Agregar Proveedor</h4>
                     <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{route('proveedores.store')}}" method="POST">
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
@@ -62,7 +68,11 @@
                         </div>
                         <div class="form-group">
                             <label>Categoria:</label>
-                            <input type="text" name="categoria" class="form-control" value="" placeholder="Escribe el nombre de la empresa">
+                            <select class="form-control" name="id_categoria" required>
+                                @foreach ($categoria as $ca)
+                                    <option value="{{$ca->id}}">{{$ca->categoria}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Producto:</label>
@@ -75,9 +85,9 @@
                         <div class="form-group">
                             <label>Empresa:</label>
                             <select class="form-control" name="id_empresa" required>
-                                <option value="">Falabella</option>
-                                <option value="">Ecom</option>
-                                <option value="">Fecode</option>
+                                @foreach ($empresa as $em)
+                                    <option value="{{$em->id}}">{{$em->nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -140,4 +150,52 @@
 
 @section('js')
     <script src="{{asset('js/app.js')}}"></script>
+        @if (session('delete')) 
+            <script>
+
+                Swal.fire(
+
+                    'Se elimino ',
+                    '{{ session('delete')}}',
+                    'success'
+                );
+            </script>
+        @endif
+
+
+        <script>
+        @if (session('success')) 
+            Swal.fire({
+                position: 'top-end',
+                type: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        @endif
+
+        $('.formulario-eliminar').submit(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Estas seguro que deseas eliminarlo?',
+                text: 'Una vez hagas lo elimines no hay vuelta atras!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'si, eliminar!'
+
+                }).then((result) => {
+
+                if (result.value) {
+
+                    this.submit();
+
+                    
+                }
+            });
+        });
+
+        </script>
 @stop

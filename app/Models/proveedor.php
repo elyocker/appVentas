@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class proveedor extends Model
 {
+    public $table = "proveedores"; // solucion por si laravel no reconoce los plurales
     use HasFactory;
     
     public function categoria()
     {
         return $this->belongsTo(categorias::class, 'id_categoria');
     }
-    public function departamento()
+    public function empresa()
     {
-        return $this->belongsTo(departamento::class, 'id_departamento');
+        return $this->belongsTo(Empresa::class, 'id_empresa');
     }
 }
