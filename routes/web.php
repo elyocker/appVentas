@@ -22,6 +22,7 @@ use App\Http\Controllers\VentasController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::resource('', HomeController::class);
 
 Route::get('/dashboard', [Controller::class, 'index']);

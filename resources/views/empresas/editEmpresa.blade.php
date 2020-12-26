@@ -8,6 +8,7 @@
 @stop
 
 @section('content')
+@if (Auth::check())
     <a href="{{route('empresas.index')}}" class="btn btn-dark mb-2" data-dismiss="modal">Regresar</a>
 
     
@@ -94,7 +95,7 @@
                 </form>
             
         </div>
-    
+@endif
     
 
 @stop

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categorias;
 use App\Models\solicitarProductos;
+use App\Models\sucursal;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SolicitarProductosController extends Controller
@@ -14,7 +17,10 @@ class SolicitarProductosController extends Controller
      */
     public function index()
     {
-        return view('bodega.solicitar_producto');
+        $usuarioEm = User::find(request()->session_id);
+        $categoria = categorias::all();
+        $sucursal = sucursal::find(request()->session_id);
+        return view('bodega.solicitar_producto',compact('usuarioEm','categoria','sucursal'));
     }
 
     /**

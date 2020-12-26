@@ -9,6 +9,7 @@
 @stop
 
 @section('content')
+@if (Auth::check())
     <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#agregarEmpresa">Agregar Empresa</button>
     <div class="card">
         <div class="card-header text-center "><strong>Empresas Registradas</strong></div>
@@ -143,7 +144,7 @@
             </div>
         </div>
     </div>
-
+@endif
     
 
 @stop

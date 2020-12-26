@@ -9,6 +9,7 @@
 @stop
 
 @section('content')
+@if (Auth::check())
     <div class="card">
         <div class="card-header text-center"><strong>Informes por Rango de fechas</strong></div>
         <div class="card-body">
@@ -65,6 +66,7 @@
             </table>
         </div>
     </div>
+@endif
 @stop
 
 @section('css')

@@ -8,6 +8,7 @@
 @stop
 
 @section('content')
+@if (Auth::check())
     <a href="{{route('proveedores.index')}}" class="btn btn-dark mb-2" data-dismiss="modal">Regresar</a>
 
     
@@ -63,6 +64,7 @@
                 </form>
             
         </div>
+@endif
 @stop
 
 @section('css')
