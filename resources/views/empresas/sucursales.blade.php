@@ -14,7 +14,7 @@
         <div class="card-header text-center "><strong>Sucursales Registradas de la empresa Fallabela</strong></div>
         <div class="card-body">
 
-            <table class="table text-center">
+            <table class="table text-center table-hover">
                 <thead class="thead-dark ">
                   <tr class="center">
                     <th scope="col">Nit</th>
@@ -46,7 +46,7 @@
                                     @csrf
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 </form>
-                                <a href="" class="btn btn-info" data-toggle="modal" data-target="#registroUsuarios"><i class="fas fa-info-circle"></i></a>
+                                <a href="{{route('registro.index')}}" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
                             </td>
                             <td>
                                 <a href="" class="btn btn-success" data-toggle="modal" data-target="#GraficaSucursales"><i class="fas fa-chart-line"></i></a>

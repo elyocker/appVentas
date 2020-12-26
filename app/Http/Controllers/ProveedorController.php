@@ -7,6 +7,8 @@ use App\Models\Empresa;
 use App\Models\proveedor;
 use Illuminate\Http\Request;
 
+use function GuzzleHttp\Promise\all;
+
 class ProveedorController extends Controller
 {
     /**
@@ -63,9 +65,12 @@ class ProveedorController extends Controller
      * @param  \App\Models\proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function edit(proveedor $proveedor)
+    public function edit($id)
     {
-        //
+        $provee = proveedor::findOrFail($id);
+        $categoria = categorias::all();
+        $empresa = Empresa::all();
+        return view('proveedores.editprovee',compact('provee','categoria', 'empresa'));
     }
 
     /**
@@ -75,9 +80,17 @@ class ProveedorController extends Controller
      * @param  \App\Models\proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, proveedor $proveedor)
+    public function update(Request $request, $id)
     {
-        //
+        $provee = request()->all();
+        $provee = request()->except('_token','_method');
+        proveedor::where('id', '=', $id)->update($provee);
+        return back()->with('success', 'Se modifico el proveedor correctamente');
+        
+        // $sucursal = request()->all();
+        // $sucursal = request()->except('_token','_method');
+        // sucursal::where('id', '=', $id)->update($sucursal);
+        // return back()->with('success', 'la sucursal se modifico correctamente');
     }
 
     /**

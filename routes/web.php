@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\InformesController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\SolicitarProductosController;
 use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\VentasController;
@@ -25,9 +26,7 @@ Route::resource('', HomeController::class);
 
 Route::get('/dashboard', [Controller::class, 'index']);
 
-Route::get('/edwin', function () {
-    return view('auth.register');
-});
+Route::resource('registro', RegistroController::class);
 
 // se llama todos los recursos del modulo de empresas
 Route::resource('empresas', EmpresaController::class);

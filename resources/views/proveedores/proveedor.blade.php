@@ -12,8 +12,8 @@
     <div class="card">
         <div class="card-header text-center"><strong>Registro de Proveedores</strong></div>
         <div class="card-body">
-            <table class="table text-center">
-                <thead class="thead-dark ">
+            <table class="table text-center table-hover">
+                <thead class="thead-dark">
                   <tr class="center">
                     <th scope="col">Nombre</th>
                     <th scope="col">categoria</th>
@@ -32,7 +32,7 @@
                             <td>{{$pro->telefono}}</td>
                             <td>{{$pro->empresa->nombre}}</td>
                             <td>
-                                <a href="" class="btn btn-warning" data-toggle="modal" data-target="#editarProveedores"><i class="fas fa-pen"></i></a>
+                                <a href="{{route('proveedores.edit', $pro->id)}}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                 <form action="{{route('proveedores.destroy', $pro->id)}}" method="POST" class="d-inline formulario-eliminar">
                                     @method('DELETE')
                                     @csrf
@@ -164,7 +164,7 @@
 
 
         <script>
-        @if (session('success')) 
+        @if (session('success'))  
             Swal.fire({
                 position: 'top-end',
                 type: 'success',

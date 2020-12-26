@@ -14,7 +14,7 @@
         <div class="card-header text-center "><strong>Empresas Registradas</strong></div>
         <div class="card-body">
 
-            <table class="table text-center">
+            <table class="table text-center table-hover">
                 <thead class="thead-dark ">
                   <tr class="center">
                     <th scope="col">Nit</th>
@@ -49,7 +49,7 @@
 
                             </td>
                             <td>
-                                <a href="" class="btn btn-info" data-toggle="modal" data-target="#adminEmpresa"><i class="fas fa-info-circle"></i></a>
+                                <a href="{{route('registro.index')}}" class="btn btn-info" ><i class="fas fa-info-circle"></i></a>
                             </td>
                         </tr> 
                                     
@@ -72,8 +72,8 @@
                 <form action="{{ route('empresas.store') }}" method="POST">
                     <div class="modal-body">
                         @csrf
-                        <div class="form-group">
-                            <label>Nit:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><strong>Nit:</strong></span>
                             <input name="nit" type="number" min="0" class="form-control"  value="{{old('nit')}}" placeholder="Escribe el Nit de la empresa">
                         </div>
                         @error('nit')
@@ -81,8 +81,8 @@
                                 <small>{{$message}}</small>
                             </div>   
                         @enderror
-                        <div class="form-group">
-                            <label>Nombre:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><strong>Nombre:</strong></span>
                             <input type="text" name="nombre" class="form-control" value="{{old('nombre')}}" placeholder="Escribe el nombre de la empresa">
                         </div>
                         @error('nombre')
@@ -90,12 +90,12 @@
                                 <small>{{$message}}</small>
                             </div> 
                         @enderror
-                        <div class="form-group">
-                            <label>Telefono:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><strong>Telefono:</strong></span>
                             <input type="number" min="0" name="telefono" value="{{old('telefono')}}" class="form-control" placeholder="Escribe el telefono">
                         </div>
-                        <div class="form-group">
-                            <label>Email:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><strong>Email:</strong></span>
                             <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Escribe el email">
                         </div>
                         @error('email')
@@ -103,8 +103,8 @@
                                 <small>{{$message}}</small>
                             </div> 
                         @enderror
-                        <div class="form-group">
-                            <label>Departamento:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><strong>Departamento:</strong></span>
                             <select class="form-control" name="id_departamento">
                                 <option value="{{old('id_departamento')}}"></option>
                                 @foreach ($departamento as $item)
@@ -118,8 +118,8 @@
                             </div> 
                         @enderror
 
-                        <div class="form-group">
-                            <label>Ciudad:</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><strong>Ciudad:</strong></span>
                             <select class="form-control" name="id_ciudad">
                                 <option value="{{old('id_ciudad')}}"></option>
                                 @foreach ($ciudad as $item)
@@ -144,56 +144,7 @@
         </div>
     </div>
 
-    <!-- Modal de Formulario para agregar admin  -->
-    <div id="adminEmpresa" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Admin de la empresa</h4>
-                    <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
-                </div>
-                <form method="POST" action="{{ route('register') }}"">
-                    <div class="modal-body">
-                        @csrf
-                        <div class="form-group">
-                            <label>Nombre:</label>
-                            <input type="text" name="name" value="" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Email:</label>
-                            <input type="email" name="email" value="" class="form-control" placeholder="Escribe el email">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Contraseña:</label>
-                            <input type="password"  name="password" value="" class="form-control" placeholder="Escribe la contraseña">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Repita la Contraseña:</label>
-                            <input type="password"  name="password_confirmation" value="" class="form-control" placeholder="Escribe la contraseña">
-                        </div>
-                        <div class="form-group">
-                            <label>Empresa:</label>
-                            <select class="form-control" name="ciudad"  required>
-                                @foreach ($empresas as $item)
-                                    <option value="{{$item->id}}">{{$item->nombre}}</option>
-                                @endforeach
-                                
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Registrar</button>
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
 
 @stop
 
