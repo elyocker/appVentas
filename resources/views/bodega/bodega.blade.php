@@ -11,7 +11,7 @@
 @section('content')
 @if (Auth::check())
     <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#agregarProducto">Agregar producto</button>
-    <button class="btn btn-dark mb-2" data-toggle="modal" data-target="#editarProducto">Agregar Categoria</button>
+    <button class="btn btn-dark mb-2" data-toggle="modal" data-target="#agregarCategoria">Agregar Categoria</button>
     <button class="btn btn-success mb-2"><i class="fas fa-file-excel"></i></button>
     <button class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i></button>
     
@@ -114,7 +114,7 @@
         </div>
     </div>
     {{-- modal de registro de categoria --}}
-    <div id="categoria" class="modal fade" role="dialog">
+    <div id="agregarCategoria" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
