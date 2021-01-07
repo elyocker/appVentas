@@ -14,7 +14,7 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +35,10 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categoria = request()->all();
+        $categoria =request()->except('_token');
+        categorias::insert($categoria);
+        return back()->with('success','La categoria se creo correctamente');
     }
 
     /**

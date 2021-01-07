@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\categorias;
+use App\Models\Empresa;
+use App\Models\proveedor;
 use App\Models\solicitarProductos;
 use App\Models\sucursal;
 use App\Models\User;
@@ -17,10 +19,12 @@ class SolicitarProductosController extends Controller
      */
     public function index()
     {
-        $usuarioEm = User::find(request()->session_id);
+        $usuarioEm = Empresa::all();
         $categoria = categorias::all();
-        $sucursal = sucursal::find(request()->session_id);
-        return view('bodega.solicitar_producto',compact('usuarioEm','categoria','sucursal'));
+        $sucursal = sucursal::all();
+        $provee = proveedor::all();
+        $solicitar = solicitarProductos::all();
+        return view('bodega.solicitar_producto',compact('provee','usuarioEm','categoria','sucursal','solicitar'));
     }
 
     /**
@@ -41,7 +45,10 @@ class SolicitarProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $solicitud = request()->all();
+        $solicitud =request()->except('_token');
+        solicitarProductos::insert($solicitud);
+        return back()->with('success','La solicitud se mando correctamente');
     }
 
     /**
@@ -84,8 +91,10 @@ class SolicitarProductosController extends Controller
      * @param  \App\Models\solicitarProductos  $solicitarProductos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(solicitarProductos $solicitarProductos)
+    public function destroy($id)
     {
-        //
+        $soli = solicitarProductos::findOrFail($id);
+        $soli::destroy($soli->id);
+        return back()->with('delete','la solicitud se elimino correctamente');
     }
 }

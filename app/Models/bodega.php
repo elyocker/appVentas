@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\categorias;
 
 class bodega extends Model
 {
@@ -11,7 +12,7 @@ class bodega extends Model
 
     public function categoria()
     {
-        return $this->belongsToMany(bodega::class, 'id_categoria');
+        return $this->belongsTo(categorias::class, 'id_categoria');
     }
 
     

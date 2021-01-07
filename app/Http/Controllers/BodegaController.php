@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\bodega;
+use App\Models\categorias;
+use App\Models\Empresa;
+use App\Models\sucursal;
 use Illuminate\Http\Request;
 
 class BodegaController extends Controller
@@ -14,7 +17,11 @@ class BodegaController extends Controller
      */
     public function index()
     {
-        return view('bodega.bodega');
+        $bodega = bodega::all();
+        $empresa = Empresa::all();
+        $sucursal = sucursal::all();
+        $categoria = categorias::all();
+        return view('bodega.bodega',compact('empresa','categoria','sucursal','bodega'));
     }
 
     /**
@@ -35,7 +42,10 @@ class BodegaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bodega = request()->all();
+        $bodega = request()->except('_token');
+        bodega::insert($bodega);
+        return back()->with('success','El producto se registro correctamente');
     }
 
     /**

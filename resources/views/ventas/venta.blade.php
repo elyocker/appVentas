@@ -84,14 +84,14 @@
 
 
     <div class="card col-md-6">
-    <div class="card-body">
-        <label for="">campo:</label>
-        <input type="text" id="campo">
-        <button type="button" class="btn btn-default" id="boton">enviar</button>
-        <br>
-        <p id="get"></p>
-    
-    </div>
+        <div class="card-body">
+            <label for="">campo:</label>
+            <input type="text" id="campo">
+            <button type="button" class="btn btn-default" id="boton">enviar</button>
+            <br>
+            <p id="get"></p>
+        
+        </div>
     </div>        
 
     {{-- ======================================

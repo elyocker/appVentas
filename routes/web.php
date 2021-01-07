@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BodegaController;
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
@@ -28,7 +29,8 @@ Route::resource('', HomeController::class);
 Route::get('/dashboard', [Controller::class, 'index']);
 
 Route::resource('registro', RegistroController::class);
-
+// se llama todos los recursos del modulo de categorias
+Route::resource('categoria', CategoriasController::class);
 // se llama todos los recursos del modulo de empresas
 Route::resource('empresas', EmpresaController::class);
 // se llama todos los recursos del modulo de sucursales

@@ -11,9 +11,10 @@
 @section('content')
 @if (Auth::check())
     <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#agregarProducto">Agregar producto</button>
-    <button class="btn btn-dark mb-2" data-toggle="modal" data-target="#agregarCategoria">Agregar Categoria</button>
+    <button class="btn btn-dark mb-2" data-toggle="modal" data-target="#editarProducto">Agregar Categoria</button>
     <button class="btn btn-success mb-2"><i class="fas fa-file-excel"></i></button>
     <button class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i></button>
+    
     <div class="card">
         <div class="card-header text-center "><strong>Productos de bodega</strong></div>
 
@@ -23,26 +24,25 @@
                     <thead class="thead-dark ">
                     <tr class="center">
                         <th scope="col">Codigo</th>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Producto</th>
                         <th scope="col">Cantidad</th>
-                        <th scope="col">Valor Und</th>
-                        <th scope="col">IVA</th>
-                        <th scope="col">Proveedor</th>
-                        <th scope="col">Empresa</th>
+                        <th scope="col">Valor_und</th>
+                        <th scope="col">Iva</th>
                         <th scope="col">Fecha de caducidad</th>
                         <th scope="col">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
+                        @foreach ($bodega as $item)
                             <tr>
-                                <th scope="row">875545</th>
-                                <td>lomo de rex</td>
-                                <td>250</td>
-                                <td>25000</td>
-                                <td>8500</td>
-                                <td>humberto rojas</td>
-                                <td>Falabella, outlet Bogota</td>
-                                <td>25/12/2020</td>
+                                <th scope="row">{{$item->codigo}}</th>
+                                <td>{{$item->categoria->categoria}}</td>
+                                <td>{{$item->producto}}</td>
+                                <td>{{$item->cantidad}}</td>
+                                <td>{{$item->valor_und}}</td>
+                                <td>{{$item->iva}}</td>
+                                <td>{{$item->fecha_vencimiento}}</td>
                                 <td>
                                     {{-- se pasa el id para editar la sucursal  --}}
                                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#editarProducto"><i class="fas fa-pen"></i></a>
@@ -51,7 +51,8 @@
                                 
                                 </td>
                                 
-                            </tr>                   
+                            </tr> 
+                        @endforeach                  
                     </tbody>
                 </table>
             </div>
@@ -67,19 +68,20 @@
                     <h4 class="modal-title">Registra Nuevo productos</h4>
                     <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{route('bodega.store')}}" method="POST">
                     <div class="modal-body">
                         @csrf
                         
                         <div class="form-group">
-                            <label>Cantidad:</label>
+                            <label>Codigo:</label>
                             <input type="number" name="codigo" min="0" value="" class="form-control" placeholder="Escribe el email">
                         </div>
                         <div class="form-group">
                             <label>Categoria:</label>
                             <select name="id_categoria" class="form-control">
-                                <option value="">carnes</option>
-                                <option value="">lacteos</option>
+                                @foreach ($categoria as $ca)
+                                    <option value="{{$ca->id}}">{{$ca->categoria}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
@@ -102,18 +104,7 @@
                             <label>Fecha de vencimiento:</label>
                             <input type="date" name="fecha_vencimiento" value="" class="form-control" >
                         </div>
-                        <div class="form-group">
-                            <label>Empresa:</label>
-                            <input type="text" name="id_empresa" value="Falabella" class="form-control" disabled>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Sucursal:</label>
-                            <input type="text"  name="id_sucursal" value="outlet bogota" class="form-control" disabled>
-                        </div>
-                        
                     </div>
-
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Registrar</button>
                         <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
@@ -123,7 +114,7 @@
         </div>
     </div>
     {{-- modal de registro de categoria --}}
-    <div id="agregarCategoria" class="modal fade" role="dialog">
+    <div id="categoria" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -131,7 +122,7 @@
                     <h4 class="modal-title">Agregar nueva categoria de productos</h4>
                     <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{route('categoria.store')}}" method="POST">
                     <div class="modal-body">
                         @csrf
             
@@ -139,7 +130,14 @@
                             <label>Nombre:</label>
                             <input type="text"  name="categoria" value="" class="form-control" placeholder="Escribe la nueva categoria">
                         </div>
-                
+                        <div class="form-group">
+                            <label class="form-label">Empresa:</label>
+                            <select class="form-control" name="id_empresa">
+                                @foreach ($empresa as $emp)
+                                    <option value="{{$emp->id}}">{{$emp->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -221,4 +219,53 @@
 
 @section('js')
     <script src="{{asset('js/app.js')}}"></script>
+
+    @if (session('success')) 
+            <script>
+                Swal.fire({
+                    position: 'top-end',
+                    type: 'success',
+                    title: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            </script>
+    @endif
+
+    @if (session('delete')) 
+            <script>
+
+                Swal.fire(
+
+                    'Se elimino ',
+                    '{{ session('delete')}}',
+                    'success'
+                );
+            </script>
+        @endif
+
+    <script>
+        $('.formulario-eliminar').submit(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Estas seguro que deseas eliminarlo?',
+                text: 'Una vez hagas lo elimines no hay vuelta atras!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'si, eliminar!'
+
+                }).then((result) => {
+
+                if (result.value) {
+
+                    this.submit();
+
+                    
+                }
+            });
+        });
+    </script>
 @stop
