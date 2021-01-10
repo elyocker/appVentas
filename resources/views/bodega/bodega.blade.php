@@ -45,7 +45,7 @@
                                 <td>{{$item->fecha_vencimiento}}</td>
                                 <td>
                                     {{-- se pasa el id para editar la sucursal  --}}
-                                    <a href="" class="btn btn-warning" data-toggle="modal" data-target="#editarProducto"><i class="fas fa-pen"></i></a>
+                                    <a href="{{route('bodega.edit', $item->id)}}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                     {{-- se utliza el metodo de eliminar         --}}
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 
@@ -148,67 +148,7 @@
             </div>
         </div>
     </div>
-    {{-- modal de Editar de productos --}}
-    <div id="editarProducto" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Editar productos</h4>
-                    <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
-                </div>
-                <form action="" method="POST">
-                    <div class="modal-body">
-                        @csrf
-            
-                        <div class="form-group">
-                            <label>Categoria:</label>
-                            <select name="categoria" class="form-control" value="carne">
-                                <option value="">carnes</option>
-                                <option value="">Lacteos</option>
-                                <option value="">licor</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Producto:</label>
-                            <input type="text"  name="nombre" value="carne de rex" class="form-control" >
-                        </div>
-                        <div class="form-group">
-                            <label>Cantidad:</label>
-                            <input type="number" name="cantidad" min="0" value="250" class="form-control" ">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor por unidad:</label>
-                            <input type="number" name="valor_und" min="0" value="8500" class="form-control" ">
-                        </div>
-                        <div class="form-group">
-                            <label>IVA:</label>
-                            <input type="number" name="iva" min="0" value="1750" class="form-control" ">
-                        </div>
-                        <div class="form-group">
-                            <label>Fecha de vencimiento:</label>
-                            <input type="date" name="fecha_vencimiento" value="20/12/2020" class="form-control" >
-                        </div>
-                        <div class="form-group">
-                            <label>Empresa:</label>
-                            <input type="text" name="id_empresa" value="Falabella" class="form-control" disabled>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Sucursal:</label>
-                            <input type="text"  name="id_sucursal" value="outlet bogota" class="form-control" disabled>
-                        </div>
-                        
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Registrar</button>
-                        <button type="button" class="btn btn-dark" data-dismiss="modal">Regresar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
 @endif
 
 @stop

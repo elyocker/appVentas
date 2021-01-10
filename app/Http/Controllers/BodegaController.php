@@ -7,6 +7,7 @@ use App\Models\categorias;
 use App\Models\Empresa;
 use App\Models\sucursal;
 use Illuminate\Http\Request;
+use Symfony\Component\VarDumper\VarDumper;
 
 class BodegaController extends Controller
 {
@@ -65,9 +66,11 @@ class BodegaController extends Controller
      * @param  \App\Models\bodega  $bodega
      * @return \Illuminate\Http\Response
      */
-    public function edit(bodega $bodega)
+    public function edit($id)
     {
-        //
+        $categoria = categorias::all();
+        $bodega = bodega::findOrFail($id);
+        return view('bodega.editBodega', compact('categoria','bodega'));
     }
 
     /**
@@ -77,9 +80,13 @@ class BodegaController extends Controller
      * @param  \App\Models\bodega  $bodega
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, bodega $bodega)
+    public function update($request,$id)
     {
-        //
+        $bodega = $request->all();
+        $bodega = $request->except('_token','_method');
+        var_dump($bodega);
+        // bodega::where('id', '=', $id)->update($bodega);
+        // return back()->with('success','El producto se modifico correctamente');
     }
 
     /**

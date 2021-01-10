@@ -13,7 +13,7 @@
             <div class="card-header text-center"><strong>Productos</strong></div>
             <div class="card-body col-md-12">
                 <table class="table">
-                    <thead class="thead-dark ">
+                    <thead class="thead-dark">
                     <tr>
                         <th scope="col">Codigo</th>
                         <th scope="col">Producto</th>
@@ -26,6 +26,16 @@
                     <tbody>
                     <tr>
                         <th scope="row">875545</th>
+                        <td>carne rex</td>
+                        <td>250</td>
+                        <td>25000</td>
+                        <td>7500</td>
+                        <td>
+                            <a href="" class="btn btn-success" data-toggle="modal" data-bs-toggle="tooltip" title="carrito de compras" data-target="#carroCompras"><i class="fas fa-shopping-cart"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">87</th>
                         <td>carne rex</td>
                         <td>250</td>
                         <td>25000</td>
@@ -47,30 +57,20 @@
 
                 <div class="card-body">
 
-                    <div class="row">
-
-                        <div class="col-md-2">
-                            <label class="mt-0">Codigo: <span class="text-success" id="ventaCodigo"></span></label>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="mt-0">Producto: <span class="text-success" id="ventaProducto"></span></label>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="mt-0">Cantidad: <span class="text-success" id="ventaCantidad"></span></label>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="mt-0">Iva: <span class="text-success" id="ventaIva"></span></label>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="mt-0">Valor Total: <span class="text-success" id="ventaTotal"></span></label>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="" class="col-sm-1"  id="eliminarVenta" title="Eliminar de la lista">
-                                <i class="fas fa-times-circle"></i>
-                            </a>
-            
-                        </div>
-                    </div>
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <td>Codigo</td>
+                                <td>Producto</td>
+                                <td>Cantidad</td>
+                                <td>Iva</td>
+                                <td>Valor total</td>
+                                <td>Acción</td>
+                            </tr>
+                        </thead>
+                        <tbody id="listaCompra">    
+                        </tbody>
+                    </table>
 
                 </div>
 
@@ -81,18 +81,7 @@
             </form>
         </div>
     </div>
-
-
-    <div class="card col-md-6">
-        <div class="card-body">
-            <label for="">campo:</label>
-            <input type="text" id="campo">
-            <button type="button" class="btn btn-default" id="boton">enviar</button>
-            <br>
-            <p id="get"></p>
-        
-        </div>
-    </div>        
+    
 
     {{-- ======================================
         MODAL DE VENTAS
@@ -110,11 +99,11 @@
                         @csrf
                         <div class="form-group col-md-6 ">
                             <label>Codigo:</label>
-                            <input id="codigo" name="codigo" type="number" min="0" class="form-control text-center" disabled value="12121">
+                            <input id="codigo" name="codigo" type="number" min="0" class="form-control text-center" readonly value="12121">
                         </div>
                         <div class="form-group col-md-6 ">
                             <label>Producto:</label>
-                            <input id="nombre" name="nombre" type="text" class="form-control text-center" disabled value="carne de rex">
+                            <input id="nombre" name="nombre" type="text" class="form-control text-center" readonly value="carne de rex">
                         </div>
                         <div class="form-group col-md-6 ">
                             <label>Cantidad:</label>
@@ -122,14 +111,14 @@
                         </div>
                         <div class="form-group col-md-6 ">
                             <label>IVA:</label>
-                            <input id="iva" name="iva" type="number" min="0" class="form-control text-center" disabled value="12000">
+                            <input id="iva" name="iva" type="number" min="0" class="form-control text-center" readonly value="12000">
                         </div>
                         <div class="form-group col-md-12">
                             <label>Valor total:</label>
-                            <input id="valorTotal" name="valor_total" type="number" min="0" class="form-control text-center" disabled value="50000">
+                            <input id="valorTotal" name="valor_total" type="number" min="0" class="form-control text-center" readonly value="50000">
                         </div>
                         <div class="form-group col-md-12">
-                            <button type="button" class="btn btn-success" id="facturar">Agregar</button>
+                            <button type="button" class="btn btn-success" id="agregar">Agregar</button>
                         </div>
                     </form>
                 </div>
@@ -148,42 +137,35 @@
     <script src="{{asset('js/app.js')}}"></script>
     <script>
 
-        $(document).on('click', '#facturar', function(){
-            const ventaCodigo = document.getElementById('ventaCodigo');
-            const ventaProducto = document.getElementById('ventaProducto');
-            const ventaCantidad = document.getElementById('ventaCantidad');
-            const ventaIva = document.getElementById('ventaIva');
-            const ventaTotal = document.getElementById('ventaTotal');
-            const eliminar = document.getElementById('eliminarVenta');
+    $(document).on('click', '#agregar', function(){
 
+        var formVenta = $('#formVenta').serialize();
 
-            const codigo = document.getElementById('codigo');
-            const nombre = document.getElementById('nombre');
-            const cantidad = document.getElementById('cantidad');
-            const iva = document.getElementById('iva');
-            const valorTotal = document.getElementById('valorTotal');
-
-  
-            ventaCodigo.innerHTML = codigo.value +'<br>' + ventaCodigo.innerHTML;
-
-
-            ventaProducto.innerHTML = nombre.value +'<br>' + ventaProducto.innerHTML;
-            ventaCantidad.innerHTML = cantidad.value +'<br>' + ventaCantidad.innerHTML;
-            ventaIva.innerHTML = iva.value +'<br>' + ventaIva.innerHTML;
-            ventaTotal.innerHTML = valorTotal.value +'<br>' + ventaTotal.innerHTML;
+        var tam = formVenta.length;
+        tabla ='';
+        console.log(formVenta);
+        
+        
+        for (let i = 0; i < tam; i++) {
+            element = formVenta[i];
             
             
-        });
-
-
-
-       $(document).on('click', '#boton', function(){
-            const campo = document.getElementById('campo');
-
-            const get = document.getElementById('get');
             
-            get.innerHTML = campo.value +'<br>'+ get.innerHTML;
+            tabla += '<tr>';
+            tabla += '<td>'+element['codigo']+'</td>';
+            tabla += '<td>'+element['nombre']+'</td>';
+            tabla += '<td>'+element['cantidad']+'</td>';
+            tabla += '<td>'+element['iva']+'</td>';
+            tabla += '<td>'+element['valor_total']+'</td>';
+            tabla += '<td> <button type="button" class="col-sm-2"  id="eliminarVenta" title="Eliminar de la lista"><i class="fas fa-times-circle"></i></button></button></td>';
+            tabla += '</tr>';
             
-        });
+
+        }
+
+        document.getElementById('listaCompra').innerHTML = tabla;
+        
+    });
+
     </script>
 @stop
