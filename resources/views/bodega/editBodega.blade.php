@@ -4,7 +4,7 @@
 @section('plugins.Sweetalert2', true)
 
 @section('content_header')
-    <h1>Editar sucursal </h1>
+    <h1>Editar el Producto {{$bodega->producto}}</h1>
 @stop
 
 @section('content')

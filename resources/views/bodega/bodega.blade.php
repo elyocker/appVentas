@@ -47,8 +47,11 @@
                                     {{-- se pasa el id para editar la sucursal  --}}
                                     <a href="{{route('bodega.edit', $item->id)}}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                     {{-- se utliza el metodo de eliminar         --}}
+                                <form action="{{route('bodega.destroy', $item->id)}}" class="d-inline formulario-eliminar" method="POST">
+                                    @method('delete')
+                                    @csrf
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                
+                                </form>
                                 </td>
                                 
                             </tr> 

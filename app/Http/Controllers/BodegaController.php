@@ -80,13 +80,16 @@ class BodegaController extends Controller
      * @param  \App\Models\bodega  $bodega
      * @return \Illuminate\Http\Response
      */
-    public function update($request,$id)
+    public function update(request $request,$id)
     {
-        $bodega = $request->all();
-        $bodega = $request->except('_token','_method');
-        var_dump($bodega);
-        // bodega::where('id', '=', $id)->update($bodega);
-        // return back()->with('success','El producto se modifico correctamente');
+        $bodega = request()->all();
+        
+        $bodega = request()->except('_token','_method');
+        
+        
+        
+        bodega::where('id', '=', $id)->update($bodega);
+        return back()->with('success','El producto se modifico correctamente');
     }
 
     /**
@@ -95,8 +98,11 @@ class BodegaController extends Controller
      * @param  \App\Models\bodega  $bodega
      * @return \Illuminate\Http\Response
      */
-    public function destroy(bodega $bodega)
+    public function destroy($id)
     {
-        //
+        $producto = bodega::findOrFail($id);
+        bodega::destroy($producto->id); //le paso el id para eliminarlo por completo
+
+        return back()->with('error','El producto se Elimino correctamente');
     }
 }
